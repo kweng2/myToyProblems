@@ -1,118 +1,55 @@
-// Remove all elements from a linked list of integers that have value val.
-
-// Example
-// Given: 1 --> 2 --> 6 --> 3 --> 4 --> 5 --> 6, val = 6
-// Return: 1 --> 2 --> 3 --> 4 --> 5
-
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- * @param {ListNode} head
- * @param {number} val
- * @return {ListNode}
- */
-
- // Time complexity: none
- // Space complexity: none
 var removeElements = function(head, val) {
-  // edge cases here:
-  // in case passing in nothing
-  if (!head) {
-    console.log('got here');
-    return null;
-  }
-  // in case there is only 1 element
-  if (!head.next) {
-    console.log('got here as well');
-    if (val === head.val) {
-      return null;
-    } else {
-      return head;
-    }
-  }
-  // iterate through each element of the linked list and remove if that node's value is matching val
   var keepGoing = function (node, match) {
+    // in case node is empty to start
     if (!node) {
-      return;
-    }
-    if (node.val === match) {
-      // assuming this node is not the tail
-      if (node.next) {
-        // find continuous blocks of the same number
-        var sameThing = false;
-        if (node.val === node.next.val) {
-          sameThing = true;
-        }
-        while (sameThing) {
-          if (node.next && node.val === node.next.val) {
-            node.val = node.next.val;
-            node.next = node.next.next;
-          } else if (!node.next && node.val === match) {
-            node.val = null;
-            node.next = null;
-            return;
-          } else {
-            sameThing = false;
-          }
-        }
-        if (node.next) {
-          node.val = node.next.val;
-          node.next = node.next.next;
-          keepGoing(node.next, match);
-        } else {
-          return;
-        }
-      // otherwise, this is the tail
+      return null;
+
+    // if node has no child
+    } else if (!node.next) {
+      if (node.val === match) {
+        return null;
       } else {
-        node.next = null;
-        node.val = null;
-        return;
+        return node;
       }
-    // otherwise, keep looking downward
+
+    // if node has a child, aka 2 levels deep or more
     } else {
-      if (node.next) {
-        keepGoing(node.next, match);
+      if (node.val === match) {
+        // if this happens, try to see if the recursion call gives back anything
+        var result = keepGoing(node.next, match);
+
+        // if the result comes back not null
+        if (result) {
+          return result;
+
+        // but if the result came back null, then return the result
+        } else {
+          return null;
+        }
+
+      // but if the current node does not match, simply look down
+      } else {
+        node.next = keepGoing(node.next, match);
+        return node;
       }
     }
   };
-  // return keepGoing(head, val) ? head : null;
-  keepGoing(head, val);
-  if (head.val === null && head.next === null) {
-    return null;
-  }
-  return head;
+  return keepGoing(head, val);
 };
 
-function ListNode(val) {
-  this.val = val;
-  this.next = null;
-}
+// function ListNode(val) {
+//   this.val = val;
+//   this.next = null;
+// }
 
-var a = new ListNode(1);
-var b = new ListNode(2);
-var c = new ListNode(6);
-var d = new ListNode(3);
-var e = new ListNode(4);
-var f = new ListNode(5);
-var g = new ListNode(6);
-var h = new ListNode(6);
-var i = new ListNode(7);
-a.next = b;
-b.next = c;
-c.next = d;
-d.next = e;
-e.next = f;
-f.next = g;
-g.next = h;
-h.next = i;
+// var a = new ListNode(1);
+// var b = new ListNode(1);
+// var c = new ListNode(2);
+// a.next = b;
+// b.next = c;
+// c.next = d;
 
-
-// var newA = removeElements(a, 6);
+// console.log(a);
+// var newA = removeElements(a, 1);
 // console.log(a.val, a.next.val, a.next.next.val, a.next.next.next.val, a.next.next.next.next.val);
-var newG = removeElements(h, 7);
-console.log(newG);
+// console.log(newA);
