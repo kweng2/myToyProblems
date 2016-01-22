@@ -56,11 +56,11 @@ var d = new TreeNode(1);
 var e = new TreeNode(3);
 var f = new TreeNode(6);
 var g = new TreeNode(9);
-a.left = b;
-a.right = c;
-b.left = d;
-b.right = e;
-c.left = f;
-c.right = g;
+// a.left = b;
+// a.right = c;
+// b.left = d;
+// b.right = e;
+// c.left = f;
+// c.right = g;
 
 console.log(invertTree(a));
