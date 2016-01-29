@@ -44,6 +44,15 @@ var maxProfit = function(prices) {
   }
 
   var secondSum = originalAccums[secondIndex];
+  var usedSecond = false;
+  for (var k = secondIndex; k > firstIndex; k -- ) {
+    var tempSum = originalAccums.slice(firstIndex,k).reduce(function(a, b){
+      return a+b;
+    });
+    if (tempSum > secondSum)
+  }
+
+
   for ( var k = firstIndex + 1; k < secondIndex; k ++ ) {
     var tempSum = originalAccums.slice(k,secondIndex+1).reduce(function(a, b){
       return a+b;
