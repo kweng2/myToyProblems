@@ -30,3 +30,4 @@ var titleToNumber = function(s) {
   return output;
 };
 
+console.log(titleToNumber("BBBBB"));
